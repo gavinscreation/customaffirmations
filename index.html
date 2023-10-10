@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Affirmation Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Welcome to the Custom Affirmation Generator</h1>
+
+<p>Enter your name to generate a custom affirmation audio:</p>
+
+<input type="text" id="userName" placeholder="Enter your name">
+<button onclick="generateAffirmation()">Generate</button>
+
+<!-- Placeholder for audio player, once the audio is generated -->
+<audio controls id="audioPlayer" style="display: none;"></audio>
+
+<script>
+    function generateAffirmation() {
+    const userName = document.getElementById('userName').value;
+
+    fetch('https://script.google.com/macros/s/AKfycbyxqza5ogrX0VKOv8M_Xvws5yq0wE-Nk8UV5ITvQOE630WkAA-Jgw1hKmmJ-rYgSkkeGQ/exec', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: userName })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const audioElement = document.getElementById('audioPlayer');
+        audioElement.src = data.audioURL;
+        audioElement.style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+</script>
+
+</body>
+</html>
