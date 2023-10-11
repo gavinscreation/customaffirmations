@@ -35,17 +35,17 @@
     },
     body: JSON.stringify({ name: userName })
     })
-    
     .then(response => {
-   console.log("Server Response:", response);
-   return response.text();
-})
-.then(text => {
-   console.log("Response Text:", text);
-})
-    .then(data => {
+       console.log("Server Response:", response);
+       return response.text();
+    })
+    .then(text => {
+       console.log("Response Text:", text);
+       return JSON.parse(text);  // Parse the text content to JSON
+    })
+    .then(jsonData => {
         const audioElement = document.getElementById('audioPlayer');
-        audioElement.src = data.audioURL;
+        audioElement.src = jsonData.audioURL;
         audioElement.style.display = 'block';
     })
     .catch(error => {
