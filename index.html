@@ -26,31 +26,27 @@
 
 <script>
     function generateAffirmation() {
-    const userName = document.getElementById('userName').value;
+  const userName = document.getElementById('userName').value;
 
-    fetch('https://script.google.com/macros/s/AKfycbyA3qu_MXy1RWQB91QtZgsO6hcpjlSPJFcwHiveLcgL4SMxD4ffI3Hb7ptUEzNWx2VzHQ/exec', {
+  fetch('https://script.google.com/macros/s/AKfycby6Duhj4WKngIWp9MAsdTF5aWsljjyT5_2cW157_6K2vNJ27XrrJqhqZ_A95oDjuZZL-A/exec', {
     method: 'POST',
     headers: {
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ name: userName })
-    })
-    .then(response => {
-       console.log("Server Response:", response);
-       return response.text();
-    })
-    .then(text => {
-       console.log("Response Text:", text);
-       return JSON.parse(text);  // Parse the text content to JSON
-    })
-    .then(jsonData => {
-        const audioElement = document.getElementById('audioPlayer');
-        audioElement.src = jsonData.audioURL;
-        audioElement.style.display = 'block';
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+  })
+  .then(response => {
+    console.log("Server Response:", response);
+    return response.json();  // Parse the response as JSON
+  })
+  .then(jsonData => {
+    const audioElement = document.getElementById('audioPlayer');
+    audioElement.src = jsonData.audioURL;
+    audioElement.style.display = 'block';
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 }
 
 </script>
