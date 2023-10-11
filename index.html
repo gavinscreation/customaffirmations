@@ -37,7 +37,10 @@
     body: JSON.stringify({ name: userName })
     })
     
-    .then(response => response.json())
+    .then(response => {
+   console.log("Server Response:", response);
+   return response.json();
+})
     .then(data => {
         const audioElement = document.getElementById('audioPlayer');
         audioElement.src = data.audioURL;
